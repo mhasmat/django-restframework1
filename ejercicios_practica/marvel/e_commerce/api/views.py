@@ -48,10 +48,11 @@ def comic_create_api_view(request):
 
 # Listar comics q tengan precio mayor o igual a 5
 @api_view(http_method_names=['GET'])
-def comic_list_filtered_api_view(request):    
+def comic_list_filtered_api_view(request):
     _queryset = Comic.objects.filter(price__gte=5.00)
-    # _data = list(_queryset.values('marvel_id', 'title', 'price'))
     _data = list(_queryset.values()) if _queryset.exists() else []
+    
+    # _data = list(_queryset.values('marvel_id', 'title', 'price'))
 
     return Response(data=_data, status=status.HTTP_200_OK)
 
